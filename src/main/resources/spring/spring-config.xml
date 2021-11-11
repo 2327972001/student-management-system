@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- 配置spring包扫描 -->
+    <context:component-scan base-package="com.zym">
+        <!--因为controller已经在springMVC中扫描过了,所以在spring扫描的时候,要把controller过滤掉-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 添加属性文件配置 -->
+    <context:property-placeholder location="classpath:config/db.properties" />
+
+
+    <!--连接池-->
+    <bean  id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+           p:driverClass="${jdbc.driverClass}"
+           p:jdbcUrl="${jdbc.jdbcUrl}"
+           p:user="${jdbc.user}"
+           p:password="${jdbc.password}"
+    />
+
+    <!--配置MyBatis的初始化核心类-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--使用旧的mybatis核心配置文件-->
+        <property name="configLocation" value="classpath:mybatis/myBatis-config.xml"/>
+        <!--指定默认mapper映射文件的扫描路径,扫描多个时,可使用list标签-->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:mybatis/mapper-*.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fd.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>-->
+
+    <!--指定mapper接口的扫描路径-->
+    <!--<mybatis:scan base-package="com.fd.dao"/>-->
+
+    <!--指定mapper接口的扫描路径 方式2-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zym.dao"/>
+    </bean>
+
+</beans>

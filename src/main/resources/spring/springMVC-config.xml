@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc
+           https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--配置SpringMVC包的扫描,因为当前springmvc也是使用了容器,所以它扫描的组件不能和spring扫描的组件重复-->
+    <context:component-scan base-package="com.zym.controller" use-default-filters="false">
+        <!--所以要使用排除法,SpringMVC只扫描自己的controller包-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- jsp所在的位置-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- jsp文件的后缀名-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--配置默认的servlet-->
+    <mvc:default-servlet-handler/>
+
+    <!--启用注解驱动-->
+    <mvc:annotation-driven/>
+</beans>

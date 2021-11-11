@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    namespace:配置名称空间，对配置的statement进行分类管理
+        此时名称可以任意
+        当使用Mapper代理时，namespace具有特殊的含义与功能
+ -->
+<mapper namespace="com.zym.dao.UserDao">
+    <!--获取所有用户列表-->
+    <select id="UserByGetList" parameterType="user" resultType="user">
+        select * from user
+    </select>
+    <!--获取指定ID的用户-->
+    <select id="UserByGet" parameterType="int" resultType="user">
+        select * from user where id = #{id}
+    </select>
+    <!--判断用户和密码是否存在-->
+    <select id="UserByLogin" parameterType="String" resultType="user">
+        select * from user where username = #{arg0} and password = #{arg1}
+    </select>
+    <!--删除指定ID的用户-->
+    <select id="UserByDelete" parameterType="int" resultType="Integer">
+        delete from user where id = #{id}
+    </select>
+    <!--修改用户信息-->
+    <update id="UserByUpdate" parameterType="user">
+        update user set name=#{name},username=#{username},password=#{password},sex=#{sex},squad=#{squad} where id= #{id}
+    </update>
+    <!--增加用户-->
+    <insert id="UserByAdd" parameterType="user">
+        insert into user (name,username,password,sex,squad,teacher) values (#{name},#{username},#{password},#{sex},#{squad},#{teacher})
+    </insert >
+</mapper>
