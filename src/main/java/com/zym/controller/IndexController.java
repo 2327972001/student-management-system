@@ -20,8 +20,13 @@ public class IndexController {
     @Autowired
     UserService userService;
 
+    @RequestMapping(value = "/login")
+    public String logins(){
+        return "login";
+    }
+
     //用户登录
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/logins", method = RequestMethod.POST)
     public String login(String username,String password,Model model, HttpSession session){
         if(userService.UserByLogin(username,password)!=null){
             UserCookie user = new UserCookie();
@@ -42,7 +47,7 @@ public class IndexController {
     public String logout(HttpSession session) {
         // 清除 session
         session.invalidate();
-        return "login";
+        return "redirect:/user/login";
     }
 
     //用户列表

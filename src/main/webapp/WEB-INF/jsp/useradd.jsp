@@ -45,6 +45,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">增加</button>
+                <a href="javascript:window.history.go(-1);"><button type="button" class="btn btn-primary">返回</button></a>
             </form>
         </div>
     </div>

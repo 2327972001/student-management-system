@@ -22,8 +22,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         // 没有登录且不是登录页面，转发到登录页面，并给出提示错误信息
-        request.setAttribute("msg", "还没登录，请先登录！");
-        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request,response);
+        //request.setAttribute("msg", "还没登录，请先登录！");
+        //request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request,response);
+        response.setHeader("content-type", "text/html;charset=UTF-8");
+        response.getWriter().write("<script>var r = alert(\"还没登录，请先登录！\");if (r!=true) window.location.href=\"/user/login\";</script>");
         return false;
     }
 

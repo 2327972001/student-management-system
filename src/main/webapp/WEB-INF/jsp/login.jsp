@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <form action="/user/login" method="post">
+            <form action="/user/logins" method="post">
                 <div class="form-group">
                     <label>用户名:</label>
                     <input type="text" class="form-control" name="username">

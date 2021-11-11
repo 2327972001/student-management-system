@@ -44,7 +44,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <a href="javascript:window.history.go(-1);" class="btn btn-primary mb-2">返回</a>
+            <a href="javascript:window.history.go(-1);"><button type="button" class="btn btn-primary">返回</button></a>
         </div>
     </div>
 </div>

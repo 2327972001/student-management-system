@@ -38,6 +38,7 @@
                     <input type="text" class="form-control" name="squad" value="${user.squad}">
                 </div>
                 <button type="submit" class="btn btn-primary">修改</button>
+                <a href="javascript:window.history.go(-1);"><button type="button" class="btn btn-primary">返回</button></a>
             </form>
         </div>
     </div>
