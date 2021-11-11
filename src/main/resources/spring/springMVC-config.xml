@@ -29,4 +29,13 @@
 
     <!--启用注解驱动-->
     <mvc:annotation-driven/>
+
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 配置拦截器作用的路径 -->
+            <mvc:mapping path="/**" />
+            <bean class="com.zym.service.impl.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

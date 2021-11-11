@@ -1,6 +1,7 @@
 package com.zym.controller;
 
 import com.zym.bean.User;
+import com.zym.bean.UserCookie;
 import com.zym.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,12 +22,27 @@ public class IndexController {
 
     //用户登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String username,String password){
+    public String login(String username,String password,Model model, HttpSession session){
         if(userService.UserByLogin(username,password)!=null){
+            UserCookie user = new UserCookie();
+            user.setUname(username);
+            user.setUpassword(password);
+            // 登录成功，将用户信息保存到session对象中
+            session.setAttribute("user", user);
+            // 重定向到主页面的跳转方法
             return "redirect:/user/list";
         }else{
-            return "redirect:/";
+            model.addAttribute("msg", "用户名或密码错误，请重新登录！");
+            return "login";
         }
+    }
+
+    //退出登录
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        // 清除 session
+        session.invalidate();
+        return "login";
     }
 
     //用户列表

@@ -17,6 +17,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <a href="/user/logout" class="btn btn-primary mb-2">退出登录</a>
             <a href="/user/adduser" class="btn btn-primary mb-2">增加</a>
             <table class="table table-striped">
                 <thead>

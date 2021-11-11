@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>登录</title>
@@ -6,9 +7,9 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <script>
-    if(${requestScope.msg}!=null){
-        alert(${requestScope.msg});
-    }
+    <c:if test="${requestScope.msg!=null}">
+    alert("${requestScope.msg}");
+    </c:if>
 </script>
 <body>
 <div class="container">
@@ -28,6 +29,5 @@
         </div>
     </div>
 </div>
-${requestScope.msg}
 </body>
 </html>
