@@ -68,5 +68,31 @@ public class IndexController {
         return "redirect:/user/list";
     }
 
-
+    //查询用户信息
+    @RequestMapping(value = "/showuser", method = RequestMethod.POST)
+    public String showuser(Integer type,String value,Model model){
+        User user = new User();
+        if(value!=null && value!="") {//禁止输入框为空
+            if (type == 1) {
+                user.setId(Integer.valueOf(value));
+            } else if (type == 2) {
+                user.setName(value);
+            } else if (type == 3) {
+                user.setUsername(value);
+            } else if (type == 4) {
+                user.setSex(value.charAt(0));
+            } else if (type == 5) {
+                user.setSquad(value);
+            }
+            if (type != 0 && value != null && value != "") {
+                List<User> list = userService.UserByShow(user);
+                model.addAttribute("userList", list);
+                return "usershow";
+            } else {
+                return "redirect:/user/list";
+            }
+        }else{
+            return "redirect:/user/list";
+        }
+    }
 }

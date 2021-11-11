@@ -17,7 +17,6 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <a href="/user/adduser" class="btn btn-primary mb-2">增加</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -45,24 +44,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <form action="/user/showuser" method="post">
-                <div class="custom-control-inline mr-0">
-                    <select class="form-control" name="type">
-                        <option value="0" selected>请选择您要查询的类型</option>
-                        <option value="1">查序号</option>
-                        <option value="2">查姓名</option>
-                        <option value="3">查用户名</option>
-                        <option value="4">查性别</option>
-                        <option value="5">查班级</option>
-                    </select>
-                </div>
-                <div class="custom-control-inline mr-0">
-                    <input type="text" class="form-control" name="value" value="">
-                </div>
-                <div class="custom-control-inline">
-                    <input type="submit" class="btn btn-primary" value="查询">
-                </div>
-            </form>
+            <a href="javascript:window.history.go(-1);" class="btn btn-primary mb-2">返回</a>
         </div>
     </div>
 </div>

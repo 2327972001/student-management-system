@@ -43,5 +43,10 @@ public class UserServiceImpl implements UserService {
         return userDao.UserByAdd(user);
     }
 
+    @Override
+    public List<User> UserByShow(User user) {
+        return userDao.UserByShow(user);
+    }
+
 
 }

@@ -32,4 +32,25 @@
     <insert id="UserByAdd" parameterType="user">
         insert into user (name,username,password,sex,squad,teacher) values (#{name},#{username},#{password},#{sex},#{squad},#{teacher})
     </insert >
+    <!--查询用户信息-->
+    <select id="UserByShow" parameterType="user" resultType="user">
+        select id,name,username,sex,squad from user u
+        <where>
+            <if test="id !=null and id !=''">
+                u.id = #{id}
+            </if>
+            <if test="name !=null and name!=''">
+                and u.name = #{name}
+            </if>
+            <if test="username !=null and username!=''">
+                and u.username = #{username}
+            </if>
+            <if test="sex !=null and sex!=''">
+                and u.sex = #{sex}
+            </if>
+            <if test="squad !=null and squad!=''">
+                and u.squad = #{squad}
+            </if>
+        </where>
+    </select>
 </mapper>

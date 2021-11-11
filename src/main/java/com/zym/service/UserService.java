@@ -17,4 +17,5 @@ public interface UserService {
     Integer UserByUpdate(User user);
     User UserByGet(Integer id);
     Integer UserByAdd(User user);
+    List<User> UserByShow(User user);
 }
