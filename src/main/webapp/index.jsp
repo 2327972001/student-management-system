@@ -5,6 +5,9 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<script>
+    location.href="/user/login";
+</script>
 <body>
 <a href="/user/login">用户登录</a>
 </body>

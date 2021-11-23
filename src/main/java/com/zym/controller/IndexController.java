@@ -1,5 +1,6 @@
 package com.zym.controller;
 
+import com.zym.bean.Ajax;
 import com.zym.bean.User;
 import com.zym.bean.UserCookie;
 import com.zym.service.UserService;
@@ -9,10 +10,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/*
+* @program: IndexController
+* @description:
+* @author: Mr.Zou
+* @create: 2021-11-23 15:44
+*/
 @Controller
 @RequestMapping("/user")
 public class IndexController {
@@ -27,18 +35,20 @@ public class IndexController {
 
     //用户登录
     @RequestMapping(value = "/logins", method = RequestMethod.POST)
-    public String login(String username,String password,Model model, HttpSession session){
+    @ResponseBody
+    public Object login(String username,String password,HttpSession session){
+        Ajax ajax = new Ajax();
         if(userService.UserByLogin(username,password)!=null){
             UserCookie user = new UserCookie();
             user.setUname(username);
             user.setUpassword(password);
             // 登录成功，将用户信息保存到session对象中
             session.setAttribute("user", user);
-            // 重定向到主页面的跳转方法
-            return "redirect:/user/list";
+            ajax.setSuccess(true);
+            return ajax;
         }else{
-            model.addAttribute("msg", "用户名或密码错误，请重新登录！");
-            return "login";
+            ajax.setSuccess(false);
+            return ajax;
         }
     }
 
@@ -72,11 +82,18 @@ public class IndexController {
         model.addAttribute("user",user);
         return "userupdate";
     }
-    @RequestMapping(value = "/updateuser/{id}")
-    public String updateuser(@PathVariable Integer id,User user){
-        user.setId(id);
-        userService.UserByUpdate(user);
-        return "redirect:/user/list";
+    //responseBody将返回值转化为json格式响应到客户端
+    //requestBody将请求数据转化为json对象
+    @RequestMapping(value = "/updateuser")
+    @ResponseBody
+    public Object updateuser(User user){
+        Ajax ajaxRequest = new Ajax();
+        if(userService.UserByUpdate(user)>0){
+            ajaxRequest.setSuccess(true);
+        }else{
+            ajaxRequest.setSuccess(false);
+        }
+        return ajaxRequest;
     }
 
     //增加用户
@@ -85,9 +102,15 @@ public class IndexController {
         return "useradd";
     }
     @RequestMapping(value = "/adduservalue")
-    public String adduservalue(User user){
-        userService.UserByAdd(user);
-        return "redirect:/user/list";
+    @ResponseBody
+    public Object adduservalue(User user){
+        Ajax ajaxRequest = new Ajax();
+        if(userService.UserByAdd(user)>0){
+            ajaxRequest.setSuccess(true);
+        }else{
+            ajaxRequest.setSuccess(false);
+        }
+        return ajaxRequest;
     }
 
     //查询用户信息
