@@ -60,12 +60,20 @@ public class IndexController {
         return "redirect:/user/login";
     }
 
-    //用户列表
+    //用户列表页面
     @RequestMapping(value = "/list")
-    public String userList(Model model){
-        List<User> user = userService.UserByGetList();
-        model.addAttribute("userList", user);
+    public String list(){
         return "user";
+    }
+
+    //发送用户列表给前端
+    @ResponseBody
+    @RequestMapping(value = "/userList")
+    public Object userList(){
+        Ajax ajaxRequest = new Ajax();
+        ajaxRequest.setSuccess(true);
+        ajaxRequest.setData(userService.UserByGetList());
+        return ajaxRequest;
     }
 
     //删除用户
@@ -75,13 +83,17 @@ public class IndexController {
         return "redirect:/user/list";
     }
 
-    //修改用户
+    //返回用户信息
+    @ResponseBody
     @RequestMapping(value = "/update/{id}")
-    public String update(@PathVariable Integer id,Model model){
-        User user = userService.UserByGet(id);
-        model.addAttribute("user",user);
-        return "userupdate";
+    public Object update(@PathVariable Integer id){
+        Ajax ajaxRequest = new Ajax();
+        ajaxRequest.setData(userService.UserByGet(id));
+        ajaxRequest.setSuccess(true);
+        return ajaxRequest;
     }
+
+    //修改用户
     //responseBody将返回值转化为json格式响应到客户端
     //requestBody将请求数据转化为json对象
     @RequestMapping(value = "/updateuser")

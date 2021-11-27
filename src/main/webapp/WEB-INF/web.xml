@@ -2,7 +2,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
+         version="3.0">
   <!--引入SpringMVC的核心控制器DispatchServlet-->
   <servlet>
     <servlet-name>servlet</servlet-name>
@@ -32,7 +32,7 @@
   <!--配置Servlet映射,默认/ 不是/*-->
   <servlet-mapping>
     <servlet-name>servlet</servlet-name>
-    <url-pattern>/</url-pattern> <!--/不过滤jsp防止死循环-->
+    <url-pattern>/</url-pattern><!--/不过滤jsp防止死循环-->
   </servlet-mapping>
 
   <filter>
@@ -52,4 +52,5 @@
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
 </web-app>

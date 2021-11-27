@@ -11,8 +11,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
         // 获取请求的URL
         String url = request.getRequestURI();
+        // 静态资源请求放行，不拦截
+        if (url.endsWith("js")||url.endsWith("css")){
+            return true ;
+        }
         // login.jsp或登录请求放行，不拦截
-        if (url.indexOf("/toLogin") >= 0 || url.indexOf("/login") >= 0) {
+        if (url.indexOf("/login") >= 0) {
             return true;
         }
         // 获取 session
