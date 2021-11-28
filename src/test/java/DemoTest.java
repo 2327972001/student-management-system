@@ -17,13 +17,14 @@ public class DemoTest {
         /*从容器中获取Mapper*/
         UserDao userDao = applicationContext.getBean(UserDao.class);
 
-        User user = new User();
-        user.setSex('男');
-//        userDao.UserByUpdate(user);
+//        User user = new User();
+//        user.setSex('男');
+////        userDao.UserByUpdate(user);
+////        System.out.println(user);
+////        System.out.println(userDao.UserByUpdate(user));
 //        System.out.println(user);
-//        System.out.println(userDao.UserByUpdate(user));
-        System.out.println(user);
-        List<User> userlist = userDao.UserByShow(user);
-        System.out.println(userlist);
+//        List<User> userlist = userDao.UserByShow(user);
+//        System.out.println(userlist);
+        System.out.println(userDao.UserByDelete(5));
     }
 }

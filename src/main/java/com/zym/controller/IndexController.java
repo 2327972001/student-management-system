@@ -77,13 +77,16 @@ public class IndexController {
     }
 
     //删除用户
-    @RequestMapping(value = "/deleteUser/{id}")
-    public String deleteUser(@PathVariable Integer id){
+    @ResponseBody
+    @RequestMapping(value = "/deleteUser")
+    public Object deleteUser(Integer id){
+        Ajax ajaxRequest = new Ajax();
         userService.UserByDelete(id);
-        return "redirect:/user/list";
+        ajaxRequest.setSuccess(true);
+        return ajaxRequest;
     }
 
-    //返回用户信息
+    //发送用户信息
     @ResponseBody
     @RequestMapping(value = "/update/{id}")
     public Object update(@PathVariable Integer id){
@@ -113,6 +116,7 @@ public class IndexController {
     public String adduser(){
         return "useradd";
     }
+
     @RequestMapping(value = "/adduservalue")
     @ResponseBody
     public Object adduservalue(User user){

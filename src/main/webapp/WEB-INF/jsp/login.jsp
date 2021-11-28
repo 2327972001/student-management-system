@@ -15,7 +15,7 @@
                         <el-input v-model="loginForm.username"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
-                        <el-input v-model="loginForm.password"></el-input>
+                        <el-input type="password" v-model="loginForm.password"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="loginSubmit('loginForm')">登录</el-button>
@@ -67,22 +67,27 @@
         },
         methods:{
             loginSubmit(formName){
+                var _this = this;
                 $.ajax({
                     type: "POST",
                     url: "/user/logins",
                     dataType: "json",
-                    data: this.loginForm,
+                    data: _this.loginForm,
                     success: function (ajaxRequest){
                         if(ajaxRequest.success){
-                            layer.msg("登录成功！",{icon:6,time:3000},function (){
-                                location.href="/user/list";
+                            _this.$message({
+                                message: '登录成功！',
+                                type: 'success',
+                                onClose(){
+                                    location.href="/user/list";
+                                }
                             });
                         }else{
-                            layer.msg("用户名或密码错误！",{icon:5,time:3000});
+                            _this.$message.error('用户名或密码错误！');
                         }
                     },
                     error : function() {
-                        layer.msg("登录异常！");
+                        _this.$message.error('登录异常！');
                     }
                 });
             }
