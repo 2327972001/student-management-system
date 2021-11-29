@@ -12,4 +12,5 @@ public interface UserDao {
     User UserByGet(Integer id);
     Integer UserByAdd(User user);
     List<User> UserByShow(User user);
+    Integer deleteByIdList(Integer[] ids);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -155,5 +156,15 @@ public class IndexController {
         }else{
             return "redirect:/user/list";
         }
+    }
+
+    //批量删除
+    @ResponseBody
+    @RequestMapping("/deleteUserList")
+    public Object deleteByIdList(Integer[] deletelist){
+        userService.deleteByIdList(deletelist);
+        Ajax ajaxRequest = new Ajax();
+        ajaxRequest.setSuccess(true);
+        return ajaxRequest;
     }
 }

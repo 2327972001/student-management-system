@@ -48,5 +48,10 @@ public class UserServiceImpl implements UserService {
         return userDao.UserByShow(user);
     }
 
+    @Override
+    public Integer deleteByIdList(Integer[] ids) {
+        return userDao.deleteByIdList(ids);
+    }
+
 
 }

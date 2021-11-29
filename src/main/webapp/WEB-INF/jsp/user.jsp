@@ -68,7 +68,7 @@
 </div>
 <div id="app">
     <template>
-        <el-button type="danger">批量删除</el-button>
+        <el-button type="danger" @click="userListDelete()">批量删除</el-button>
         <el-button type="primary" @click="dialogVisible2 = true">添加用户</el-button>
         <el-table :data="UserListData" style="width: 100%" stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection" label="多选" align="center"> </el-table-column>
@@ -182,6 +182,7 @@
                     squad: [{ required: true, message: '请输入班级', trigger: 'blur' }],
                 },
                 multipleSelection: [],
+                deleteUserId: [],
                 addForm:{
                     name: '',
                     username: '',
@@ -301,6 +302,33 @@
                     },
                     error : function() {
                         _this.$message.error('添加异常！');
+                    }
+                });
+            },
+            userListDelete(){
+                var _this = this;
+                for (let i = 0; i < this.multipleSelection.length; i++) {
+                    this.deleteUserId[i] = this.multipleSelection[i].id;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/user/deleteUserList",
+                    traditional: true,
+                    data: {
+                        "deletelist": _this.deleteUserId,
+                    },
+                    dataType:"json",
+                    success: function (ajaxRequest){
+                        if(ajaxRequest.success){
+                            _this.selectAll();
+                            _this.$message({
+                                message: '删除成功！',
+                                type: 'success'
+                            });
+                        }
+                    },
+                    error : function() {
+                        _this.$message.error('删除异常！');
                     }
                 });
             },
