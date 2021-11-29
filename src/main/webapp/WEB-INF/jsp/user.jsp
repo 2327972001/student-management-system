@@ -13,64 +13,30 @@
     <%@ include file="header.jsp" %>
 </head>
 <body>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <a href="/user/logout" class="btn btn-primary mb-2">退出登录</a>
-            <a href="/user/adduser" class="btn btn-primary mb-2">增加</a>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>用户名</th>
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>班级</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${userList}" var="user">
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.name}</td>
-                        <td>${user.sex}</td>
-                        <td>${user.squad}</td>
-                        <td>
-                            <a href="${pageContext.request.contextPath}/user/deleteUser/${user.id}">删除</a>
-                            <a href="${pageContext.request.contextPath}/user/update/${user.id}">修改</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <form action="/user/showuser" method="post">
-                <div class="custom-control-inline mr-0">
-                    <select class="form-control" name="type">
-                        <option value="0" selected>请选择您要查询的类型</option>
-                        <option value="1">查序号</option>
-                        <option value="2">查姓名</option>
-                        <option value="3">查用户名</option>
-                        <option value="4">查性别</option>
-                        <option value="5">查班级</option>
-                    </select>
-                </div>
-                <div class="custom-control-inline mr-0">
-                    <input type="text" class="form-control" name="value" value="">
-                </div>
-                <div class="custom-control-inline">
-                    <input type="submit" class="btn btn-primary" value="查询">
-                </div>
-            </form>
-        </div>
+<a href="/user/logout" class="btn btn-primary mb-2">退出登录</a>
+<form action="/user/showuser" method="post">
+    <div class="custom-control-inline mr-0">
+        <select class="form-control" name="type">
+            <option value="0" selected>请选择您要查询的类型</option>
+            <option value="1">查序号</option>
+            <option value="2">查姓名</option>
+            <option value="3">查用户名</option>
+            <option value="4">查性别</option>
+            <option value="5">查班级</option>
+        </select>
     </div>
-</div>
+    <div class="custom-control-inline mr-0">
+        <input type="text" class="form-control" name="value" value="">
+    </div>
+    <div class="custom-control-inline">
+        <input type="submit" class="btn btn-primary" value="查询">
+    </div>
+</form>
 <div id="app">
     <template>
         <el-button type="danger" @click="userListDelete()">批量删除</el-button>
         <el-button type="primary" @click="dialogVisible2 = true">添加用户</el-button>
-        <el-table :data="UserListData" style="width: 100%" stripe @selection-change="handleSelectionChange">
+        <el-table :data="UserListData" style="width: 100%" stripe @selection-change="handleSelectionChange" v-loading="loading" slot="empty" empty-text="暂无数据">
             <el-table-column type="selection" label="多选" align="center"> </el-table-column>
             <el-table-column type="index" label="编号" align="center"> </el-table-column>
             <el-table-column prop="name" label="姓名" align="center"> </el-table-column>
@@ -81,7 +47,6 @@
             <el-table-column prop="teacher" label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="userEdit(UserListData[scope.$index].id)">编辑</el-button>
-                    <el-button size="mini" type="danger" @click="userDel(UserListData[scope.$index].id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -191,6 +156,7 @@
                     squad: '',
                     teacher: '',
                 },
+                loading: true,
             }
         },
         mounted(){
@@ -210,6 +176,7 @@
                         _this.$message.error('获取数据异常！');
                     }
                 });
+                _this.loading = false;
             },
             handleSelectionChange(val) {
                 var _this = this;

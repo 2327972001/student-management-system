@@ -26,7 +26,7 @@
     </select>
     <!--修改用户信息-->
     <update id="UserByUpdate" parameterType="user">
-        update user set name=#{name},username=#{username},password=#{password},sex=#{sex},squad=#{squad} where id= #{id}
+        update user set name=#{name},username=#{username},password=#{password},sex=#{sex},squad=#{squad},teacher=#{teacher} where id= #{id}
     </update>
     <!--增加用户-->
     <insert id="UserByAdd" parameterType="user">
