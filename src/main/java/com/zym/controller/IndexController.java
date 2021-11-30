@@ -112,11 +112,6 @@ public class IndexController {
     }
 
     //增加用户
-    @RequestMapping(value = "/adduser")
-    public String adduser(){
-        return "useradd";
-    }
-
     @RequestMapping(value = "/adduservalue")
     @ResponseBody
     public Object adduservalue(User user){
